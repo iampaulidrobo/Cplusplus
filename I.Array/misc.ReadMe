@@ -1,0 +1,4 @@
+stack smashing-Stack smashing is a cyberattack that causes a stack buffer overflow. A program starts writing more data to a buffer than it is capable of holding,
+which may lead to the crashing of the program or the whole system
+arr[5]={1,2,3,4,5}
+arr[6]=100;

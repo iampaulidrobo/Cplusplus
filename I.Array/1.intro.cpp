@@ -40,5 +40,14 @@ Arrays are used in a wide variety of applications, including:
 
 
 
+    A subarray is a contiguous part of array, i.e., Subarray is an array that is inside another array.
+    n*(n+1)/2 
 
+
+    A subsequence is a sequence that can be derived from another sequence by removing zero or more elements, without changing the order of the remaining elements.
+    (2n – 1)
+
+
+    If a Set has all its elements belonging to other sets, this set will be known as a subset of the other set.
+    A ⊆ B
 */

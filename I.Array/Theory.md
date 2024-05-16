@@ -50,5 +50,8 @@ Arrays are used in a wide variety of applications, including:
 
     If a Set has all its elements belonging to other sets, this set will be known as a subset of the other set.
     A ⊆ B
-Question Bank:
+
+Array Rotation:https://www.geeksforgeeks.org/complete-guide-on-array-rotations/
+
+ 
 

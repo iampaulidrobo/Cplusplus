@@ -1,9 +1,3 @@
-stack smashing-Stack smashing is a cyberattack that causes a stack buffer overflow. A program starts writing more data to a buffer than it is capable of holding,
-which may lead to the crashing of the program or the whole system
-arr[5]={1,2,3,4,5}
-arr[6]=100;
-
-set ,unorderedmap difference
 Question Bank:
 https://www.geeksforgeeks.org/array-data-structure/array-searching/?ref=lbp
 
@@ -252,54 +246,42 @@ Time Complexity: O(n)
 Auxiliary Space: O(1)
 ```
 
-
-
-1)  Searching in an array where adjacent differ by at most k
-2)  Ceiling in a sorted array
-3)  Find the only repetitive element between 1 to n-1
-4)  Find a peak element
-5)  Leaders in an array
-6)  Equilibrium index of an array
-7)  Find the two repeating elements in a given array
-8)  Find a triplet that sum to a given value
-9)  Count triplets with sum smaller than a given value
-10) Find the two numbers with odd occurrences in an unsorted array
-11) Check if a given array contains duplicate elements within k distance from each other
-12) Count pairs with given sum
-13) Binary search in sorted vector of pairs
-14) Maximum difference between groups of size two
-15) Find first k natural numbers missing in given array
-16) Noble integers in an array (count of greater elements is equal to value)
-17) Number of pairs with maximum sum
-
-
-1)  Majority Element
-2)  Number of unique triplets whose XOR is zero
-3)  Find position of an element in a sorted array of infinite numbers
-4)  Find four elements that sum to a given value
-5)  Search an element in an unsorted array using minimum number of comparisons
-6)  k-th missing element in sorted array
-7)  Median of two sorted arrays with different sizes in O(log(min(n, m)))
-8)  Find number of pairs in an array such that their XOR is 0
-9)  Closest numbers from a list of unsorted integers
-10) Minimum product subset of an array
-11) Maximum difference between two subsets of m elements
-12) Find k maximum elements of array in original order
-13) Number of local extrema in an array
-
-
 <details>
 
-<summary>Intuition and Approach</summary>
+<summary>Array rotation</summary>
 
 ### You can add a header
 
-You can add text within a collapsed section. 
-
-You can add an image or a code block, too.
+```
+1)storing the first element and shifting each element to previous one.Take stored to be fit in last
+2)using temp array to occupy O(N) space.
+3)juggling
+4)Reversal:
+void rotateArray(vector<int>& arr, int d)
+{
+    // Find the size of the array
+    int n = arr.size();
+ 
+    // Mod k with the size of the array
+    // To handle the case where k is greater than the size
+    // of the array
+    d %= n;
+ 
+    // Reverse the first k elements
+    reverse(arr.begin(), arr.begin() + d);
+ 
+    // Reverse the remaining n-k elements
+    reverse(arr.begin() + d, arr.end());
+ 
+    // Reverse the entire array
+    reverse(arr.begin(), arr.end());
+}
+ 
+```
 
 ```ruby
    puts "Hello World"
 ```
 
 </details>
+

@@ -4,7 +4,349 @@ https://www.geeksforgeeks.org/array-data-structure/array-searching/?ref=lbp
 
 
 <details>
-<summary>I.Program to find the minimum (or maximum) element of an array</summary>
+<summary>I.Implement stack using array</summary>
+
+```
+### Intuition and Approach
+1)includes methods like push,pop,empty,top
+2)initialise a variable named top and manage it so that it directs towards the last element
+3)cautious to check if the stack is empty or not before executing methods
+```
+```
+Code:
+
+class Stack {
+  int size;
+  int * arr;
+  int top;
+  public:
+    Stack() {
+      top = -1;
+      size = 1000;
+      arr = new int[size];
+    }
+  void push(int x) {
+    top++;
+    arr[top] = x;
+  }
+  int pop() {
+    int x = arr[top];
+    top--;
+    return x;
+  }
+  int Top() {
+    return arr[top];
+  }
+  int Size() {
+    return top + 1;
+  }
+};
+```
+</details>
+
+<details>
+<summary>I.Implement queue using array</summary>
+
+### Intuition and Approach
+
+```
+1)includes methods like push,pop,empty,top
+2)initialise a variable named top and manage it so that it directs towards the last element
+3)cautious to check if the stack is empty or not before executing methods
+```
+```
+Code:
+
+class Queue {
+  int * arr;
+  int start, end, currSize, maxSize;
+  public:
+    Queue() {
+      arr = new int[16];
+      start = -1;
+      end = -1;
+      currSize = 0;
+    }
+
+  Queue(int maxSize) {
+    ( * this).maxSize = maxSize;
+    arr = new int[maxSize];
+    start = -1;
+    end = -1;
+    currSize = 0;
+  }
+  void push(int newElement) {
+    if (currSize == maxSize) {
+      cout << "Queue is full\nExiting..." << endl;
+      exit(1);
+    }
+    if (end == -1) {
+      start = 0;
+      end = 0;
+    } else
+      end = (end + 1) % maxSize;
+    arr[end] = newElement;
+    cout << "The element pushed is " << newElement << endl;
+    currSize++;
+  }
+  int pop() {
+    if (start == -1) {
+      cout << "Queue Empty\nExiting..." << endl;
+    }
+    int popped = arr[start];
+    if (currSize == 1) {
+      start = -1;
+      end = -1;
+    } else
+      start = (start + 1) % maxSize;
+    currSize--;
+    return popped;
+  }
+  int top() {
+    if (start == -1) {
+      cout << "Queue is Empty" << endl;
+      exit(1);
+    }
+    return arr[start];
+  }
+  int size() {
+    return currSize;
+  }
+
+};
+```
+</details>
+
+<details>
+<summary>II.Implement Stack using Queues</summary>
+
+### Intuition and Approach
+
+```
+
+Enqueue x to q2.
+One by one dequeue everything from q1 and enqueue to q2.
+Swap the queues of q1 and q2.
+
+```
+```
+code:
+/* Program to implement a stack using
+two queue */
+#include <bits/stdc++.h>
+
+using namespace std;
+
+class Stack {
+	// Two inbuilt queues
+	queue<int> q1, q2;
+
+public:
+	void push(int x)
+	{
+		// Push x first in empty q2
+		q2.push(x);
+
+		// Push all the remaining
+		// elements in q1 to q2.
+		while (!q1.empty()) {
+			q2.push(q1.front());
+			q1.pop();
+		}
+
+		// swap the names of two queues
+		queue<int> q = q1;
+		q1 = q2;
+		q2 = q;
+	}
+
+	void pop()
+	{
+		// if no elements are there in q1
+		if (q1.empty())
+			return;
+		q1.pop();
+	}
+
+	int top()
+	{
+		if (q1.empty())
+			return -1;
+		return q1.front();
+	}
+
+	int size() { return q1.size(); }
+};
+
+// Driver code
+int main()
+{
+	Stack s;
+	s.push(1);
+	s.push(2);
+	s.push(3);
+
+	cout << "current size: " << s.size() << endl;
+	cout << s.top() << endl;
+	s.pop();
+	cout << s.top() << endl;
+	s.pop();
+	cout << s.top() << endl;
+
+	cout << "current size: " << s.size() << endl;
+	return 0;
+}
+// This code is contributed by Chhavi
+
+```
+</details>
+
+<details>
+<summary>III.Implement Stack using 1 queue:</summary>
+
+### Intuition and Approach
+
+```
+
+
+    The idea behind this approach is to make one queue and push the first element in it. 
+    After the first element, we push the next element and then push the first element again and finally pop the first element. 
+    So, according to the FIFO rule of the queue, the second element that was inserted will be at the front and then the first element as it was pushed again later and its first copy was popped out. 
+    So, this acts as a Stack and we do this at every step i.e. from the initial element to the second last element, and the last element will be the one that we are inserting and since we will be pushing the initial elements after pushing the last element, our last element becomes the first element.
+
+
+```
+```
+code:
+class Stack {
+ 
+    queue<int> q;
+ 
+public:
+    void push(int data);
+    void pop();
+    int top();
+    int size();
+    bool empty();
+};
+ 
+// Push operation
+void Stack::push(int data)
+{
+    //  Get previous size of queue
+    int s = q.size();
+ 
+    // Push the current element
+    q.push(data);
+ 
+    // Pop all the previous elements and put them after
+    // current element
+ 
+    for (int i = 0; i < s; i++) {
+        // Add the front element again
+        q.push(q.front());
+ 
+        // Delete front element
+        q.pop();
+    }
+}
+ 
+// Removes the top element
+void Stack::pop()
+{
+    if (q.empty())
+        cout << "No elements\n";
+    else
+        q.pop();
+}
+ 
+// Returns top of stack
+int Stack::top() { return (q.empty()) ? -1 : q.front(); }
+ 
+// Returns true if Stack is empty else false
+bool Stack::empty() { return (q.empty()); }
+ 
+int Stack::size() { return q.size(); }
+
+```
+</details>
+
+
+
+<details>
+<summary>III.Implement Stack using 1 queue:</summary>
+
+### Intuition and Approach
+
+```
+1)initialise rear,front and size
+2)maintain rear and front while inserting and deletion of numbers
+3)size will be-rear-front;
+
+
+```
+```
+class Stack {
+  queue < int > q;
+  public:
+    void Push(int x) {
+      int s = q.size();
+      q.push(x);
+      for (int i = 0; i < s; i++) {
+
+        q.push(q.front());
+        q.pop();
+      }
+    }
+  int Pop() {
+    int n = q.front();
+    q.pop();
+    return n;
+  }
+  int Top() {
+    return q.front();
+  }
+  int Size() {
+    return q.size();
+  }
+};
+
+```
+</details>
+
+<details>
+<summary>VI.Valid parenthesis</summary>
+
+### Intuition and Approach
+
+```
+1)store opening paranthesis only into the stack
+2)if close parenthesis arises then check with top element.Remove it if it matches and go on next
+3)if stack is empty or no opening parenthesis-invalid
+The idea behind this is that we set up things in sequence.
+
+```
+```
+bool isValid(string s) {
+        stack<char>st; 
+        for(auto it: s) {
+            if(it=='(' || it=='{' || it == '[') st.push(it); 
+            else {
+                if(st.size() == 0) return false; 
+                char ch = st.top(); 
+                st.pop(); 
+                if((it == ')' and ch == '(') or  (it == ']' and ch == '[') or (it == '}' and ch == '{')) continue;
+                else return false;
+            }
+        }
+        return st.empty(); 
+    }
+```
+</details>
+
+
+<details>
+<summary>next greater elemnent</summary>
 
 ### Intuition and Approach
 
@@ -13,275 +355,281 @@ Linear search
 1)define int result=INT_MIN
 2)with each iteration update the min/max between result and arr[i]
 ```
-```ruby
-Time Complexity: O(n)
-Auxiliary Space: O(1)
+```
+Code:
+class Solution {
+  public:
+    vector < int > nextGreaterElements(vector < int > & nums) {
+      int n = nums.size();
+      vector < int > nge(n, -1);
+      stack < int > st;
+      for (int i = 2 * n - 1; i >= 0; i--) {
+        while (!st.empty() && st.top() <= nums[i % n]) {
+          st.pop();
+        }
+
+        if (i < n) {
+          if (!st.empty()) nge[i] = st.top();
+        }
+        st.push(nums[i % n]);
+      }
+      return nge;
+    }
+};
 ```
 </details>
 
+
 <details>
-<summary>II.Last duplicate element in a sorted array</summary>
+<summary>implemement LRU</summary>
 
 ### Intuition and Approach
 
 ```
 Linear search
-1)iterate backwards
-2)compare and return if true
+1)define int result=INT_MIN
+2)with each iteration update the min/max between result and arr[i]
 ```
-```ruby
-Time Complexity: O(n)
-Auxiliary Space: O(1)
+```
+Code:
+class LRUCache {
+  public:
+    class node {
+      public:
+        int key;
+      int val;
+      node * next;
+      node * prev;
+      node(int _key, int _val) {
+        key = _key;
+        val = _val;
+      }
+    };
+
+  node * head = new node(-1, -1);
+  node * tail = new node(-1, -1);
+
+  int cap;
+  unordered_map < int, node * > m;
+
+  LRUCache(int capacity) {
+    cap = capacity;
+    head -> next = tail;
+    tail -> prev = head;
+  }
+
+  void addnode(node * newnode) {
+    node * temp = head -> next;
+    newnode -> next = temp;
+    newnode -> prev = head;
+    head -> next = newnode;
+    temp -> prev = newnode;
+  }
+
+  void deletenode(node * delnode) {
+    node * delprev = delnode -> prev;
+    node * delnext = delnode -> next;
+    delprev -> next = delnext;
+    delnext -> prev = delprev;
+  }
+
+  int get(int key_) {
+    if (m.find(key_) != m.end()) {
+      node * resnode = m[key_];
+      int res = resnode -> val;
+      m.erase(key_);
+      deletenode(resnode);
+      addnode(resnode);
+      m[key_] = head -> next;
+      return res;
+    }
+
+    return -1;
+  }
+
+  void put(int key_, int value) {
+    if (m.find(key_) != m.end()) {
+      node * existingnode = m[key_];
+      m.erase(key_);
+      deletenode(existingnode);
+    }
+    if (m.size() == cap) {
+      m.erase(tail -> prev -> key);
+      deletenode(tail -> prev);
+    }
+
+    addnode(new node(key_, value));
+    m[key_] = head -> next;
+  }
+};
+
 ```
 </details>
+
 <details>
-<summary>III.Most frequent element in an array</summary>
+<summary>implemement LFU</summary>
 
 ### Intuition and Approach
 
 ```
-Usually use hashmap to count the frequency in these types of problems
-1)use unordered_map to store the element and its count
-2)iterate through the array.
-3)iterate through hashmap and take max count element
+Linear search
+1)define int result=INT_MIN
+2)with each iteration update the min/max between result and arr[i]
 ```
-```ruby
-Time Complexity: O(n)
-Auxiliary Space: O(n)-for using unordered_map
-```
-```
-Sorting
-1)sort the array
-2)update max_count varible with each iteration on the array
-```
-
-```ruby
-Time Complexity: O(nlog(n)) 
-Auxiliary Space: O(1)
-```
-
-An efficient solution to this problem can be to solve this problem by Moore’s voting Algorithm.
-
-NOTE: THE ABOVE VOTING ALGORITHM ONLY WORKS WHEN THE MAXIMUM OCCURRING ELEMENT IS MORE THAN (SIZEOFARRAY/2) TIMES;
-```
-int maxFreq(int *arr, int n) { 
-    //using moore's voting algorithm 
-    int res = 0; 
-    int count = 1; 
-    for(int i = 1; i < n; i++) { 
-        if(arr[i] == arr[res]) { 
-            count++; 
-        } else { 
-            count--; 
+```code:
+struct Node {
+    int key, value, cnt;
+    Node *next; 
+    Node *prev;
+    Node(int _key, int _value) {
+        key = _key;
+        value = _value; 
+        cnt = 1; 
+    }
+}; 
+struct List {
+    int size; 
+    Node *head; 
+    Node *tail; 
+    List() {
+        head = new Node(0, 0); 
+        tail = new Node(0,0); 
+        head->next = tail;
+        tail->prev = head; 
+        size = 0;
+    }
+    
+    void addFront(Node *node) {
+        Node* temp = head->next;
+        node->next = temp;
+        node->prev = head;
+        head->next = node;
+        temp->prev = node;
+        size++; 
+    }
+    
+    void removeNode(Node* delnode) {
+        Node* delprev = delnode->prev;
+        Node* delnext = delnode->next;
+        delprev->next = delnext;
+        delnext->prev = delprev;
+        size--; 
+    }
+    
+    
+    
+};
+class LFUCache {
+    map<int, Node*> keyNode; 
+    map<int, List*> freqListMap; 
+    int maxSizeCache;
+    int minFreq; 
+    int curSize; 
+public:
+    LFUCache(int capacity) {
+        maxSizeCache = capacity; 
+        minFreq = 0;
+        curSize = 0; 
+    }
+    void updateFreqListMap(Node *node) {
+        keyNode.erase(node->key); 
+        freqListMap[node->cnt]->removeNode(node); 
+        if(node->cnt == minFreq && freqListMap[node->cnt]->size == 0) {
+            minFreq++; 
+        }
+        
+        List* nextHigherFreqList = new List();
+        if(freqListMap.find(node->cnt + 1) != freqListMap.end()) {
+            nextHigherFreqList = freqListMap[node->cnt + 1];
         } 
-          
-        if(count == 0) { 
-            res = i; 
-            count = 1; 
-        } 
-          
-    } 
-      
-    return arr[res]; 
-} 
+        node->cnt += 1; 
+        nextHigherFreqList->addFront(node); 
+        freqListMap[node->cnt] = nextHigherFreqList; 
+        keyNode[node->key] = node;
+    }
+    
+    int get(int key) {
+        if(keyNode.find(key) != keyNode.end()) {
+            Node* node = keyNode[key]; 
+            int val = node->value; 
+            updateFreqListMap(node); 
+            return val; 
+        }
+        return -1; 
+    }
+    
+    void put(int key, int value) {
+        if (maxSizeCache == 0) {
+            return;
+        }
+        if(keyNode.find(key) != keyNode.end()) {
+            Node* node = keyNode[key]; 
+            node->value = value; 
+            updateFreqListMap(node); 
+        }
+        else {
+            if(curSize == maxSizeCache) {
+                List* list = freqListMap[minFreq]; 
+                keyNode.erase(list->tail->prev->key); 
+                freqListMap[minFreq]->removeNode(list->tail->prev);
+                curSize--; 
+            }
+            curSize++; 
+            // new value has to be added who is not there previously 
+            minFreq = 1; 
+            List* listFreq = new List(); 
+            if(freqListMap.find(minFreq) != freqListMap.end()) {
+                listFreq = freqListMap[minFreq]; 
+            }
+            Node* node = new Node(key, value); 
+            listFreq->addFront(node);
+            keyNode[key] = node; 
+            freqListMap[minFreq] = listFreq; 
+        }
+    }
+};
+
+/**
+ * Your LFUCache object will be instantiated and called as such:
+ * LFUCache* obj = new LFUCache(capacity);
+ * int param_1 = obj->get(key);
+ * obj->put(key,value);
+ */
 ```
 </details>
+
 <details>
-<summary>IV Find a Fixed Point (Value equal to index) in a given array</summary>
+<summary>Largest rectangle in historam</summary>
 
 ### Intuition and Approach
 
 ```
-Linear search-O(n)
-Binary search-O(logn)-Try using binary search for searching in sorted array always
-
+Linear search
+1)define int result=INT_MIN
+2)with each iteration update the min/max between result and arr[i]
 ```
-```ruby
-Time Complexity: O(n)
-Auxiliary Space: O(n)
-```
-</details>
-<details>
-<summary>V. Find the element that appears once in an array where every other element appears twice</summary>
-
-### Intuition and Approach
-
-```
-//hashmap
-//XOR
-// 2*(sum_of_array_without_duplicates) – (sum_of_array) 
-```
-
-</details>
-<details>
-<summary>VI.Find common elements in three sorted arrays</summary>
-
-### Intuition and Approach
-
-```
-//pull all arrays into hashset
-//iterate over any one and use hashset.count(arr[i]) to check if the element exists
-```
-```ruby
-Time Complexity: O(n)
-Auxiliary Space: O(1)
+```code
+class Solution {
+  public:
+    int largestRectangleArea(vector < int > & histo) {
+      stack < int > st;
+      int maxA = 0;
+      int n = histo.size();
+      for (int i = 0; i <= n; i++) {
+        while (!st.empty() && (i == n || histo[st.top()] >= histo[i])) {
+          int height = histo[st.top()];
+          st.pop();
+          int width;
+          if (st.empty())
+            width = i;
+          else
+            width = i - st.top() - 1;
+          maxA = max(maxA, width * height);
+        }
+        st.push(i);
+      }
+      return maxA;
+    }
+};
 ```
 </details>
-
-<details>
-<summary>VII.Check for Majority Element in a sorted array</summary>
-
-### Intuition and Approach
-
-```
-//linear search
-//binary search
-//hashmap
-```
-```ruby
-Time Complexity: O(n)
-Auxiliary Space: O(1)
-```
-</details>
-
-<details>
-<summary>VIII.Find the Missing Number</summary>
-Given an array arr[] of size N-1 with integers in the range of [1, N], the task is to find the missing number from the first N integers.
-### Intuition and Approach
-
-```
-//linear search
-//double pointer check
-//XOR-    Assume a1 ⊕ a2 ⊕ a3 ⊕ . . . ⊕ an = a and a1 ⊕ a2 ⊕ a3 ⊕ . . . ⊕ an-1 = b
-    Then a ⊕ b = an
-```
-
-</details>
-
-<details>
-<summary>IX.Find the Number Occurring Odd Number of Times</summary>
-
-### Intuition and Approach
-
-```
-//hashmap
-//@XOR-x^0 = x
-x^y=y^x (Commutative property holds)
-(x^y)^z = x^(y^z) (Distributive property holds)
-x^x=0
-```
-```ruby
-Time Complexity: O(n)
-Auxiliary Space: O(1)
-```
-</details>
-
-<details>
-<summary>X.Find the first repeating element in an array of integers</summary>
-
-### Intuition and Approach
-
-```
-//sort and check
-//@hashset
-//hashing
-```
-```ruby
-Time Complexity: O(n)
-Auxiliary Space: O(1)
-```
-</details>
-
-<details>
-<summary>XI.Find lost element from a duplicated array</summary>
-
-### Intuition and Approach
-
-```
-//binary search on unsorted array,wow.@
-//XOR
-```
-```ruby
-Time Complexity: O(logM + logN)(binary)
-Auxiliary Space: O(1)
-```
-</details>
-<details>
-<summary>XII.Third largest element in an array of distinct elements</summary>
-
-### Intuition and Approach
-
-```
-//sort and check
-
-```
-```ruby
-Time Complexity: O(nlogn)
-Auxiliary Space: O(1)
-```
-</details>
-<details>
-<summary>XIII.Find element in a sorted array whose frequency is greater than or equal to n/2.</summary>
-
-### Intuition and Approach
-
-```
-//middle number @
-```
-```ruby
-Time Complexity: O(1)
-Auxiliary Space: O(1)
-```
-</details>
-<details>
-<summary>XIV.Consecutive steps to roof top-Given the heights of consecutive buildings, find the maximum number of consecutive steps one can put forward such that he gains an increase in altitude while going from the roof of one building to the next adjacent one.</summary>
-
-### Intuition and Approach
-
-```
-//linear search to check in the subarray is increasing,reset 'count' when it decreases and store max value as answer.
-```
-```ruby
-Time Complexity: O(n)
-Auxiliary Space: O(1)
-```
-
-<details>
-
-<summary>Array rotation</summary>
-
-### You can add a header
-
-```
-1)storing the first element and shifting each element to previous one.Take stored to be fit in last
-2)using temp array to occupy O(N) space.
-3)juggling
-4)Reversal:
-void rotateArray(vector<int>& arr, int d)
-{
-    // Find the size of the array
-    int n = arr.size();
- 
-    // Mod k with the size of the array
-    // To handle the case where k is greater than the size
-    // of the array
-    d %= n;
- 
-    // Reverse the first k elements
-    reverse(arr.begin(), arr.begin() + d);
- 
-    // Reverse the remaining n-k elements
-    reverse(arr.begin() + d, arr.end());
- 
-    // Reverse the entire array
-    reverse(arr.begin(), arr.end());
-}
- 
-```
-
-```ruby
-   puts "Hello World"
-```
-
-</details>
-

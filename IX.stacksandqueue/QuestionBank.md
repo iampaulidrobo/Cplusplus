@@ -1,14 +1,11 @@
-Question Bank:
-https://www.geeksforgeeks.org/array-data-structure/array-searching/?ref=lbp
-
-
+https://www.youtube.com/watch?v=GYptUgnIM_I&list=PLgUwDviBIf0oSO572kQ7KCSvCUh1AdILj&pp=iAQB
 
 <details>
 <summary>I.Implement stack using array</summary>
 
 ```
 ### Intuition and Approach
-1)includes methods like push,pop,empty,top
+1)includes methods like push,pop,empty,top()
 2)initialise a variable named top and manage it so that it directs towards the last element
 3)cautious to check if the stack is empty or not before executing methods
 ```
@@ -45,7 +42,7 @@ class Stack {
 </details>
 
 <details>
-<summary>I.Implement queue using array</summary>
+<summary>II.Implement queue using array</summary>
 
 ### Intuition and Approach
 
@@ -118,7 +115,7 @@ class Queue {
 </details>
 
 <details>
-<summary>II.Implement Stack using Queues</summary>
+<summary>III.Implement Stack using Queues</summary>
 
 ### Intuition and Approach
 
@@ -202,79 +199,7 @@ int main()
 </details>
 
 <details>
-<summary>III.Implement Stack using 1 queue:</summary>
-
-### Intuition and Approach
-
-```
-
-
-    The idea behind this approach is to make one queue and push the first element in it. 
-    After the first element, we push the next element and then push the first element again and finally pop the first element. 
-    So, according to the FIFO rule of the queue, the second element that was inserted will be at the front and then the first element as it was pushed again later and its first copy was popped out. 
-    So, this acts as a Stack and we do this at every step i.e. from the initial element to the second last element, and the last element will be the one that we are inserting and since we will be pushing the initial elements after pushing the last element, our last element becomes the first element.
-
-
-```
-```
-code:
-class Stack {
- 
-    queue<int> q;
- 
-public:
-    void push(int data);
-    void pop();
-    int top();
-    int size();
-    bool empty();
-};
- 
-// Push operation
-void Stack::push(int data)
-{
-    //  Get previous size of queue
-    int s = q.size();
- 
-    // Push the current element
-    q.push(data);
- 
-    // Pop all the previous elements and put them after
-    // current element
- 
-    for (int i = 0; i < s; i++) {
-        // Add the front element again
-        q.push(q.front());
- 
-        // Delete front element
-        q.pop();
-    }
-}
- 
-// Removes the top element
-void Stack::pop()
-{
-    if (q.empty())
-        cout << "No elements\n";
-    else
-        q.pop();
-}
- 
-// Returns top of stack
-int Stack::top() { return (q.empty()) ? -1 : q.front(); }
- 
-// Returns true if Stack is empty else false
-bool Stack::empty() { return (q.empty()); }
- 
-int Stack::size() { return q.size(); }
-
-```
-</details>
-
-
-
-<details>
-<summary>III.Implement Stack using 1 queue:</summary>
+<summary>IV.Implement Stack using 1 queue:</summary>
 
 ### Intuition and Approach
 
@@ -315,7 +240,7 @@ class Stack {
 </details>
 
 <details>
-<summary>VI.Valid parenthesis</summary>
+<summary>V.Valid parenthesis</summary>
 
 ### Intuition and Approach
 
@@ -346,7 +271,7 @@ bool isValid(string s) {
 
 
 <details>
-<summary>next greater elemnent</summary>
+<summary>VI.next greater elemnent</summary>
 
 ### Intuition and Approach
 
@@ -381,7 +306,7 @@ class Solution {
 
 
 <details>
-<summary>implemement LRU</summary>
+<summary>VII.Implemement LRU</summary>
 
 ### Intuition and Approach
 
@@ -467,7 +392,7 @@ class LRUCache {
 </details>
 
 <details>
-<summary>implemement LFU</summary>
+<summary>VII.Implemement LFU</summary>
 
 ### Intuition and Approach
 
@@ -599,7 +524,7 @@ public:
 </details>
 
 <details>
-<summary>Largest rectangle in historam</summary>
+<summary>IX.Largest rectangle in historam</summary>
 
 ### Intuition and Approach
 

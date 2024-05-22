@@ -524,7 +524,7 @@ public:
 </details>
 
 <details>
-<summary>IX.Largest rectangle in historam</summary>
+<summary>IX.Largest rectangle in histogram</summary>
 
 ### Intuition and Approach
 

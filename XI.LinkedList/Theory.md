@@ -1,0 +1,2 @@
+Concluded Theory:
+Linked List:

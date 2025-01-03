@@ -1,3 +1,11 @@
 {
-    "ros.distro": "jazzy"
+    "ros.distro": "jazzy",
+    "files.associations": {
+        "iostream": "cpp",
+        "vector": "cpp",
+        "string": "cpp",
+        "format": "cpp",
+        "sstream": "cpp",
+        "regex": "cpp"
+    }
 }
